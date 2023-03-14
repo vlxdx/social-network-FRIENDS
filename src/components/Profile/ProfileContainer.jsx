@@ -1,36 +1,40 @@
-import React from "react";
+import React from 'react';
 import Profile from "./Profile";
-import axios from "axios";
 import { connect } from "react-redux";
-import { getUserProfile, getStatus, updateStatus } from "../../redux/profile-reducer";
-import {
-  Navigate,
-  useLocation,
-  useMatch,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-import { withAuthRedirect } from "../../hoc/withAuthRedirect";
+import { getStatus, getUserProfile, updateStatus } from "../../redux/profile-reducer";
+import { useParams } from 'react-router-dom';
 import { compose } from "redux";
+import { withNavigate } from '../../hoc/withNavigate';
+
+export function withRouter(Children) {
+  return (props) => {
+
+    const match = { params: useParams() };
+    return <Children {...props} match={match} />
+  }
+}
 
 class ProfileContainer extends React.Component {
 
   componentDidMount() {
-    let userId = this.props.router.params.userId;
+    let userId = this.props.match.params.userId;
     if (!userId) {
-      userId =
-      this.props.authorizedUserId;
+      userId = this.props.authorizedUserId;
+      if (!userId) {
+        this.props.navigate("/login");
+      }
     }
     this.props.getUserProfile(userId);
     this.props.getStatus(userId);
   }
 
+
   render() {
     return (
       <Profile {...this.props}
-      profile={this.props.profile}
-      status={this.props.status}
-      updateStatus={this.props.updateStatus}/>
+        profile={this.props.profile}
+        status={this.props.status}
+        updateStatus={this.props.updateStatus} />
     )
   }
 }
@@ -38,25 +42,13 @@ class ProfileContainer extends React.Component {
 let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
-    authorizedUserId: state.auth.userId,
-    isAuth: state.auth.isAuth
+  authorizedUserId: state.auth.userId,
+  isAuth: state.auth.isAuth
 });
 
-function withRouter(Component){
-  function ComponentWithRouterProp(props){
-      let location = useLocation()
-      let navigate = useNavigate()
-      let params = useParams()
-      return (
-          <Component
-              {...props}
-              router={{location, navigate, params}} />
-      )
-  }
-  return ComponentWithRouterProp
-}
 
 export default compose(
-  connect(mapStateToProps, {getUserProfile, getStatus, updateStatus}),
+  withNavigate,
+  connect(mapStateToProps, { getUserProfile, getStatus, updateStatus }),
   withRouter
 )(ProfileContainer);
