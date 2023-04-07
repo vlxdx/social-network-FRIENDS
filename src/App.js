@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -25,7 +25,7 @@ class App extends Component {
     }
 
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div className='app-booker'>
           <HeaderContainer />
           <Navbar />
@@ -52,7 +52,7 @@ class App extends Component {
             </Suspense>
           </div>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
