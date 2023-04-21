@@ -29,7 +29,6 @@ class ProfileContainer extends React.Component {
   }
 
   componentDidMount() {
-
     this.refreshProfile();
 }
 
