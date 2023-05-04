@@ -1,7 +1,7 @@
 import React, { Component, Suspense } from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import UsersContainer from './components/Users/UsersContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import Login from './components/Login/Login';
@@ -10,22 +10,17 @@ import { initializeApp } from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import store from "./redux/redux-store";
 import { Provider } from 'react-redux';
+import Music from './components/Music';
+import News from './components/News';
+import Settings from './components/Settings';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
 
 
 class App extends Component {
-  catchAllUnhandledErrors = (reason, promise) => {
-    alert("Some error occured");
-    //console.error(promiseRejectionEvent);
-  }
   componentDidMount() {
     this.props.initializeApp();
-    window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors);
-  }
-  componentWillUnmount() {
-    window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors);
   }
 
   render() {
@@ -34,7 +29,7 @@ class App extends Component {
     }
 
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div className='app-booker'>
           <HeaderContainer />
           <Navbar />
@@ -43,9 +38,6 @@ class App extends Component {
               <Routes>
                 <Route path='/dialogs'
                   element={<DialogsContainer />} />
-
-                <Route path='/'
-                  element={<Navigate to='/profile' />} />
 
                 <Route path='/profile'
                   element={<ProfileContainer />} >
@@ -58,16 +50,22 @@ class App extends Component {
                 <Route path='/users'
                   element={<UsersContainer />} />
 
+                <Route path='/news'
+                  element={<News />} />
+
+                <Route path='/music'
+                  element={<Music />} />
+
+                <Route path='/settings'
+                  element={<Settings />} />
+
                 <Route path='/login'
                   element={<Login />} />
-
-                <Route path='*'
-                  element={<div>NOT FOUND</div>} />
               </Routes>
             </Suspense>
           </div>
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 }
