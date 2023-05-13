@@ -3,7 +3,9 @@ import React from "react";
 const Settings = (props) => {
     return (
         <div>
-            Settings
+            <header>
+                <h1>Settings</h1>
+            </header>
         </div>
     )
 }
