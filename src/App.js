@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import Music from './components/Music';
 import News from './components/News';
 import Settings from './components/Settings';
+import Footer from './components/Footer/Footer';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'));
@@ -33,6 +34,7 @@ class App extends Component {
         <div className='app-booker'>
           <HeaderContainer />
           <Navbar />
+          <Footer />
           <div className='app-booker-content'>
             <Suspense fallback={<Preloader />}>
               <Routes>
