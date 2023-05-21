@@ -10,9 +10,9 @@ import { initializeApp } from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import store from "./redux/redux-store";
 import { Provider } from 'react-redux';
-import Music from './components/Music';
-import News from './components/News';
-import Settings from './components/Settings';
+import Music from './components/Music/Music';
+import News from './components/News/News';
+import Settings from './components/Settings/Settings';
 import Footer from './components/Footer/Footer';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));

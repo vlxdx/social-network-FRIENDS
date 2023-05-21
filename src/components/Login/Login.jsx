@@ -5,7 +5,9 @@ import {required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth-reducer";
 import {Navigate} from "react-router-dom";
-import style from "./../common/FormsControls/FormsControls.module.css"
+import style from "./../common/FormsControls/FormsControls.module.css";
+import logo from "../../assets/images/friends_logo.jpg";
+import s from "./Login.module.css";
 
 const LoginForm = ({handleSubmit, error, captchaUrl}) => {
     return (
@@ -40,7 +42,8 @@ const Login = (props) => {
         return <Navigate to={"/profile"}/>
     }
 
-    return <div>
+    return <div className={s.login}>
+        <img src={logo}/>
         <h1>Login</h1>
         <LoginReduxForm onSubmit={onSubmit} captchaUrl={props.captchaUrl}/>
     </div>

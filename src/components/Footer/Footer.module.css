@@ -5,6 +5,5 @@
     padding-left: 20%;
     display: grid;
     grid-template-areas: "f a p c d";
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 
