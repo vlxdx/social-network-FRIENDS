@@ -1,3 +1,19 @@
 .newsBlock {
-    padding: 20px;
+  padding: 20px;
+}
+
+.news {
+  display: grid;
+  grid-template-areas: 'v w u' 'b t s' 'o e h';
+  gap: 20px;
+}
+
+.news a {
+  color: black;
+  text-decoration: none;
+}
+
+.newsBlock header img {
+  float: center;
+  width: 50px;
 }
